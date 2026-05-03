@@ -1,8 +1,9 @@
 'use server';
 
-import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { revalidatePath } from 'next/cache';
+import { createSupabaseServerClient } from '../lib/supabase/server';
 
-export async function submitSellerApplication(_, formData) {
+export async function submitSellerApplication(formData) {
   const supabase = createSupabaseServerClient();
 
   const payload = {
@@ -15,30 +16,18 @@ export async function submitSellerApplication(_, formData) {
   };
 
   if (!payload.full_name || !payload.email || !payload.seller_type || !payload.message) {
-    return {
-      ok: false,
-      message: 'Please complete your name, email, seller type, and item details.',
-    };
+    throw new Error('Please complete your name, email, seller type, and item details.');
   }
 
   if (!supabase) {
-    return {
-      ok: false,
-      message: 'Supabase is not configured yet. Add your Supabase URL and anon key to environment variables.',
-    };
+    throw new Error('Supabase is not configured yet. Add NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY.');
   }
 
   const { error } = await supabase.from('seller_applications').insert(payload);
 
   if (error) {
-    return {
-      ok: false,
-      message: error.message,
-    };
+    throw new Error(error.message);
   }
 
-  return {
-    ok: true,
-    message: 'Application received. We will review your seller request and follow up by email.',
-  };
+  revalidatePath('/');
 }
