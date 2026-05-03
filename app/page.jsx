@@ -9,7 +9,6 @@ import {
   ChevronRight,
   CircleDollarSign,
   ClipboardCheck,
-  CreditCard,
   Gamepad2,
   Gem,
   Gift,
@@ -64,7 +63,7 @@ const fallbackItems = [
     location: 'Chicago, IL',
     shipping: 'Local pickup',
     rating: '4.8',
-    image_url: 'https://images.unsplash.com/photo-1532372320572-cda25653a694?auto=format&fit=crop&w=900&q=80',
+    image_url: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?auto=format&fit=crop&w=900&q=80',
     badge: 'Local deal',
   },
   {
