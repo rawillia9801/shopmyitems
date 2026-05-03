@@ -5,7 +5,6 @@ import {
   BookOpen,
   BriefcaseBusiness,
   Car,
-  CheckCircle2,
   ChevronRight,
   CircleDollarSign,
   ClipboardCheck,
@@ -37,7 +36,6 @@ import {
   Watch,
 } from 'lucide-react';
 import { createSupabaseServerClient } from '../lib/supabase/server';
-import { submitSellerApplication } from './actions';
 
 const fallbackItems = [
   {
@@ -249,7 +247,7 @@ function Header() {
           <a href="#signin">Sign In</a>
           <a className="icon-link" href="#notifications" aria-label="Notifications"><Bell size={20} /></a>
           <a className="icon-link" href="#cart" aria-label="Cart"><ShoppingCart size={21} /></a>
-          <a className="sell-button" href="#seller-application">Sell</a>
+          <a className="sell-button" href="/sell">Sell</a>
         </div>
       </div>
       <nav className="category-nav wide-section" aria-label="Marketplace categories">
@@ -333,7 +331,7 @@ export default async function HomePage() {
             <p>Find furniture, electronics, clothing, tools, collectibles, handmade goods, and more.</p>
             <div className="promo-actions">
               <a className="primary-button" href="#shop">Shop deals</a>
-              <a className="secondary-button" href="#seller-application">List an item</a>
+              <a className="secondary-button" href="/sell">List an item</a>
             </div>
           </div>
           <div className="promo-grid">
@@ -363,7 +361,7 @@ export default async function HomePage() {
         <ProductRow id="recommended" title="Picks For You" subtitle="Recommended items, trending products, and saved-search style discoveries." items={recommended} />
 
         <section className="seller-strip wide-section">
-          <div className="row-heading"><div><h2>Recommended Sellers</h2><p>Follow storefronts with strong ratings, reliable communication, and active listings.</p></div><a href="#seller-application">See sellers</a></div>
+          <div className="row-heading"><div><h2>Recommended Sellers</h2><p>Follow storefronts with strong ratings, reliable communication, and active listings.</p></div><a href="#shop">See sellers</a></div>
           <div className="seller-card-grid">
             {sellerCards.map(([name, description, rating, location]) => (
               <article className="seller-card" key={name}>
@@ -382,13 +380,14 @@ export default async function HomePage() {
             <div className="seller-panel">
               <div>
                 <span className="eyebrow"><Store size={16} /> Sell on Shopmyitems</span>
-                <h2>List it. Sell it. Ship it. Shop it.</h2>
-                <p>Sellers can upload photos, set pricing, accept offers, choose shipping or local pickup, manage orders, and grow a storefront.</p>
+                <h2>Turn your stuff into sales.</h2>
+                <p>List items in minutes, choose shipping or local pickup, accept offers, and reach buyers looking for everyday finds.</p>
+                <div className="promo-actions"><a className="primary-button" href="/sell">Start selling</a><a className="secondary-button" href="#how-it-works">How selling works</a></div>
               </div>
               <div className="commission-card"><span>Seller-friendly commission</span><strong>5%</strong><p>Simple fees on successful sales, with optional boosts and storefront tools later.</p></div>
             </div>
             <div className="listing-flow">
-              {['Add Photos', 'Add Details', 'Pricing Options', 'Delivery Options', 'Review & Publish'].map((step, index) => (
+              {['Add Photos', 'Add Details', 'Set Price', 'Choose Delivery', 'Publish'].map((step, index) => (
                 <div key={step}><span>{index + 1}</span><strong>{step}</strong></div>
               ))}
             </div>
@@ -419,27 +418,6 @@ export default async function HomePage() {
           </div>
         </section>
 
-        <section id="seller-application" className="application-section wide-section">
-          <div className="application-copy">
-            <span className="eyebrow"><CheckCircle2 size={16} /> Seller application</span>
-            <h2>Apply to sell on Shopmyitems.</h2>
-            <p>Tell us what you plan to sell, how you want to fulfill orders, and whether you are a casual seller, maker, reseller, or small business.</p>
-            <ul>
-              <li><CheckCircle2 size={18} /> Individual, small-business, maker, and local reseller accounts.</li>
-              <li><CheckCircle2 size={18} /> Seller approval helps keep the marketplace safe and trustworthy.</li>
-              <li><CheckCircle2 size={18} /> Clear policies for listings, payments, shipping, returns, and disputes.</li>
-            </ul>
-          </div>
-          <form className="application-form" action={submitSellerApplication}>
-            <label>Full name<input name="full_name" type="text" placeholder="Your name" required /></label>
-            <label>Email address<input name="email" type="email" placeholder="you@example.com" required /></label>
-            <label>Seller type<select name="seller_type" defaultValue="" required><option value="" disabled>Choose one</option><option>Individual Seller</option><option>Small Business Seller</option><option>Maker or Artist</option><option>Local Reseller</option><option>Business Seller</option></select></label>
-            <label>Categories you plan to sell<input name="categories" type="text" placeholder="Electronics, clothing, home goods, handmade..." /></label>
-            <label>What do you want to sell?<textarea name="message" placeholder="Tell us about your items, condition, pricing, quantity, shipping, and pickup plan." required /></label>
-            <button className="primary-button" type="submit">Submit application</button>
-          </form>
-        </section>
-
         <section id="policies" className="policy-section wide-section">
           <div className="row-heading"><div><h2>Trust, safety, and marketplace policies</h2><p>Clear rules help buyers shop confidently and sellers operate fairly.</p></div><a href="#policies">Help center</a></div>
           <div className="policy-grid">
@@ -451,7 +429,7 @@ export default async function HomePage() {
       </main>
       <footer className="footer wide-section">
         <div><a className="brand" href="#top"><span className="brand-mark"><ShoppingBag size={22} /></span><span>Shopmyitems</span></a><p>Sell what you have. Shop what you love.</p></div>
-        <div className="footer-links"><a href="#shop">Browse</a><a href="#categories">Categories</a><a href="#sell">Sell</a><a href="#policies">Policies</a><a href="#seller-application">List an Item</a></div>
+        <div className="footer-links"><a href="#shop">Browse</a><a href="#categories">Categories</a><a href="/sell">Sell</a><a href="#policies">Policies</a><a href="/sell">List an Item</a></div>
       </footer>
     </>
   );
