@@ -5,6 +5,7 @@ import {
   BookOpen,
   BriefcaseBusiness,
   Car,
+  CheckCircle2,
   ChevronRight,
   CircleDollarSign,
   ClipboardCheck,
