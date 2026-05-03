@@ -1,29 +1,45 @@
 # Shopmyitems Marketplace
 
-Shopmyitems is a modern marketplace website for selling your own items and allowing other approved sellers to list theirs with a low-commission model.
+Shopmyitems is a Next.js marketplace website backed by Supabase. It is built for selling your own items and allowing approved sellers to list theirs with a low-commission model.
+
+## Stack
+
+- Next.js App Router
+- React
+- Supabase database
+- Supabase row level security policies
+- CSS in `app/globals.css`
 
 ## What is included
 
-- Responsive React/Vite marketplace landing page
-- Featured item cards and category navigation
-- Seller-focused homepage sections
+- Proportional, wide responsive marketplace homepage
+- Featured listings loaded from Supabase when configured
+- Fallback demo listings so the site remains viewable during setup
+- Seller application form that submits to Supabase
 - Low 5% seller commission messaging
-- Seller interest/application form UI
-- Marketplace policy section covering:
-  - Seller rules
-  - Buyer protection
-  - Returns and refunds
-  - Shipping
-  - Commission and fees
-  - Trust and safety
-- Mobile navigation and polished responsive styling
+- Marketplace policy sections
+- Supabase schema for seller applications, seller profiles, listings, and orders
 
-## Getting started
+## Local setup
 
 Install dependencies:
 
 ```bash
 npm install
+```
+
+Create `.env.local` from `.env.example`:
+
+```bash
+cp .env.example .env.local
+```
+
+Add your Supabase project values:
+
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://your-project-ref.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-supabase-anon-key
+NEXT_PUBLIC_SITE_URL=http://localhost:3000
 ```
 
 Run locally:
@@ -32,33 +48,31 @@ Run locally:
 npm run dev
 ```
 
-Build for production:
+Open:
 
 ```bash
-npm run build
+http://localhost:3000
 ```
 
-Preview production build:
+## Supabase setup
 
-```bash
-npm run preview
-```
+1. Create or open your Supabase project.
+2. Open the SQL editor.
+3. Run the SQL in `supabase/schema.sql`.
+4. Add active listings to the `listings` table.
+5. Seller application submissions will save to `seller_applications`.
 
-## Recommended next steps before launch
+## Hostinger deployment
 
-This first version is a complete frontend website. To operate as a real marketplace, connect these production services:
+Use Hostinger's Node.js hosting for this Next.js version. Configure:
 
-1. **Payments**: Stripe Connect, PayPal Commerce Platform, or another marketplace payment provider.
-2. **User accounts**: Clerk, Supabase Auth, Auth0, Firebase Auth, or a custom authentication system.
-3. **Database**: Supabase, Neon/Postgres, Firebase, PlanetScale, or another production database.
-4. **Image uploads**: UploadThing, Cloudinary, S3, or Vercel Blob.
-5. **Seller applications**: Connect the seller form to email, a database, Airtable, or an admin review dashboard.
-6. **Legal review**: Have a qualified attorney review all policies, especially once real money, seller disputes, and tax obligations are involved.
+- Install command: `npm install`
+- Build command: `npm run build`
+- Start command: `npm run start`
+- Port: use the port Hostinger assigns through the environment
 
-## Suggested marketplace commission
-
-The site currently presents a recommended **5% marketplace commission** on completed item sales. Payment processor fees, taxes, shipping, optional promotions, and chargeback costs should be disclosed separately.
+Add the same Supabase environment variables in Hostinger before starting the app.
 
 ## Notes
 
-The sample product listings use public image URLs and placeholder product data. Replace them with real listing data once the backend is connected.
+No marketplace data should be stored in localStorage. Listings, seller applications, seller profiles, and orders belong in Supabase.
